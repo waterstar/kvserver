@@ -5,15 +5,18 @@
   "main": "src/server.js",
   "scripts": {
     "start": "babel-node src/server.js",
+    "debug": "babel-node --inspect src/server.js",
+    "build": "babel src -d dist --source-maps",
     "test": "test"
   },
   "author": "suising@waterstar.sg",
   "license": "ISC",
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "express": "^4.16.3",
-    "mongoose": "^5.2.9",
-    "babel-cli": "^6.26.0"
+    "lodash": "^4.17.10",
+    "mongoose": "^5.2.9"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"

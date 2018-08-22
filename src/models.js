@@ -2,15 +2,15 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const KVSchema = new Schema({
-  kvname: {
+  key: {
     type: String,
     required: 'give a name for the key'
   },
-  Created_date: {
+  timestamp: {
     type: Date,
     default: Date.now
   },
-  kvvalue: {
+  value: {
     type: String,
     default: null 
   }
