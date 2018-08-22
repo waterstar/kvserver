@@ -37,6 +37,6 @@ export const add_key_value = (req, res) => {
    KV.insertMany([{'key':key, 'value':req.body[key]}], (err, kv)=>{
       if (err) return res.status(400).send(err);
       var ret = _.map(kv, _.partialRight(_.pick, ['key', 'value', 'timestamp']));
-      res.json(ret[0]);
+      res.status(201).json(ret[0]);
    });
 };
