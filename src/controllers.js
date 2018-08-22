@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
+import moment from 'moment';
 const KV = mongoose.model('KV');
+
+const isValidDate = (datetime) =>{
+   return (moment(datetime,[moment.ISO_8601],true).isValid());
+}
 
 export const list_key_value = (req, res) => {
    console.log('list_key_value', req.params, req.query);
@@ -14,8 +19,17 @@ export const list_key_value = (req, res) => {
    if (req.query.timestamp) {
       const time_ms = parseInt(req.query.timestamp);
       const timestamp = new Date(time_ms);
-      query.push({$match:{'timestamp':{$lte:timestamp}}});
+      if (isValidDate(timestamp)) {
+         query.push({$match:{'timestamp':{$lte:timestamp}}});
+      }
+      else {
+         return res.status(400).send('invalid timestamp');
+      }
    }
+   else {
+      if (!_.isEmpty(req.query)) return res.status(400).send('invalid query string');
+   }
+
    // handle query without timestamp
    query.push({$match:{'key':{$eq:key}}}, { $sort: { timestamp: -1 } }, { $limit : 1 });
 

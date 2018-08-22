@@ -46,3 +46,13 @@ it('Get unsupported url', function () {
   return frisby.get(`http://${host}/object`)
       .expect('status', 400);
 });
+
+it('Get with invalid timestamp', function () {
+  return frisby.get(`http://${host}/object/hello?timestamp=NaN`)
+      .expect('status', 400);
+});
+
+it('Get with invalid query string', function () {
+  return frisby.get(`http://${host}/object/hello?times=${timestamp}`)
+      .expect('status', 400);
+});
